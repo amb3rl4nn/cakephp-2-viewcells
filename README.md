@@ -34,19 +34,24 @@ This plugin uses the same standards as CakePHP so you can create
 subfolders/plugins in the Cell directory structure without issue.
 
 EXAMPLE:
+```
 Cell Code: <?=$this->Cell->element('[name]')?>
 Cell Controller: /app/Controller/Cell/[name]Cell.php
 Cell View: /app/View/Cells/[name].ctp
-  
+```
+
 EXAMPLE 2:
+```
 Cell Code: <?=$this->Cell->element('[path]/[name]')?>
 Cell Controller: /app/Controller/Cell/[path]/[name]Cell.php
 Cell View: /app/View/Cells/[path]/[name].ctp
-  
+```
+
 OTHER SAMPLES:
+```
 <?=$this->Cell->element('[plugin].[name]')?>
 <?=$this->Cell->element('[plugin].[path]/[name]')?>
-
+```
 
 Issues? https://github.com/amb3rl4nn/cakephp-2-viewcells/issues
 
