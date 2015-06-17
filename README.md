@@ -17,8 +17,9 @@ var $helpers = ['ViewCells.Cell'];
 ```
 
 4) Test your installation from any view file:
+```
 <?=$this->Cell->element('ViewCells.Test')?>
-
+```
 
 ### IMPLEMENTATION ###
 ViewCells are simple controllers that give access to Models
