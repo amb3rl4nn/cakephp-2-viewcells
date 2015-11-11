@@ -56,6 +56,29 @@ Cell View: /app/View/Cells/[path]/[name].ctp
 <?=$this->Cell->element('[plugin].[path]/[name]')?>
 ```
 
+###### PASS SETTINGS FROM CONTROLLER: ######
+```
+$this->set('CellOptions', [
+  '[plugin].[path]/[name]' => [
+    'title' => 'some new title',
+    'data' => ['bar' => 'bar', 'foo' => 'foo'],
+  ],
+]);
+```
+
+###### PASS SETTINGS FROM THE VIEW: ######
+```
+//name - the full name of the cell your loading
+//data - any data you want to pass directly to the cell
+//options - accepts any normal cakephp element options plus "settings" for the cell
+<?=$this->Cell->element('[name]', [data], [
+  'settings' => [
+    'title' => 'some new title',
+    'data' => ['bar' => 'bar', 'foo' => 'foo'],
+  ],
+]);
+```
+
 Issues? https://github.com/amb3rl4nn/cakephp-2-viewcells/issues
 
 Want to Help? https://github.com/amb3rl4nn/cakephp-2-viewcells

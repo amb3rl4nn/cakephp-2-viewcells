@@ -14,7 +14,6 @@ class CellHelper extends Helper {
 		$class = array_pop($directory);
 		$directory = implode('/', $directory);
 
-
 		App::uses($class, $plugin.'Controller/Cell/'.$directory);
 		/* @var Cell $cell */
 		$cell = new $class();
