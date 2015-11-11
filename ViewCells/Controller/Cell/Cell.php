@@ -7,23 +7,40 @@
 class Cell extends View {
 
 	var $uses = [];
+	var $settings = [];
 
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct(Controller $controller = null) {
 		foreach ($this->uses as $use) {
 			$this->{$use} = ClassRegistry::init($use);
 		}
-		parent::__construct();
+		parent::__construct($controller);
 	}
 
 	public function element($name, $data = array(), $options = array()) {
-		$this->display();
+		$this->settings = Hash::merge($this->settings(), (array)Hash::get($options, 'settings'));
+		if (isset($this->settings['query']['joins'])) {
+			$joins = [];
+			foreach ($this->settings['query']['joins'] as $key => $value) {
+				$joins[] = $value;
+			}
+			$this->settings['query']['joins'] = $joins;
+		}
+
+		$this->beforeRender();
+		$this->set($this->settings);
+
+		if ($this->view)
+			$name = $this->view;
+
 		return parent::element($name, $data, $options);
 	}
 
-	public function display() { }
+	public function settings() { return []; }
+
+	public function beforeRender() { }
 
 	public function _getElementFileName($name) {
 		list($plugin, $name) = $this->pluginSplit($name);

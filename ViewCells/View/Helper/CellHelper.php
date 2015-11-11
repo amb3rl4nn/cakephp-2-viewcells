@@ -7,18 +7,22 @@ App::uses('Cell', 'ViewCells.Controller/Cell');
  */
 class CellHelper extends Helper {
 
-	public function element($name, $data = array()) {
-		$class = $name.'Cell';
-		list($plugin, $class) = pluginSplit($class, true);
+	public function element($name, $data = [], $options = []) {
+		$controller = $name.'Cell';
+		list($plugin, $class) = pluginSplit($controller, true);
+		$directory = explode('/', $controller);
+		$class = array_pop($directory);
+		$directory = implode('/', $directory);
 
-		App::uses($class, $plugin.'Controller/Cell');
-		if (App::load($class)) {
-			$namespace = explode('/', $class);
-			$class = array_pop($namespace);
-			/* @var Cell $cell */
-			$cell = new $class();
-			return $cell->element($name, $data);
-		}
-		throw new Exception('Cell('.$name.') not found!');
+
+		App::uses($class, $plugin.'Controller/Cell/'.$directory);
+		/* @var Cell $cell */
+		$cell = new $class();
+		$cell->theme = $this->theme;
+
+		if (!empty($this->_View->viewVars['CellOptions'][$name]))
+			$options = Hash::merge($options, ['settings' => $this->_View->viewVars['CellOptions'][$name]]);
+
+		return $cell->element($name, $data, $options);
 	}
 }
