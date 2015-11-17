@@ -19,7 +19,7 @@ class Cell extends View {
 		parent::__construct($controller);
 	}
 
-	public function element($name, $data = array(), $options = array()) {
+	public function cell($name, $data = array(), $options = array()) {
 		$this->settings = Hash::merge($this->settings(), (array)Hash::get($options, 'settings'));
 		if (isset($this->settings['query']['joins'])) {
 			$joins = [];
@@ -35,7 +35,7 @@ class Cell extends View {
 		if ($this->view)
 			$name = $this->view;
 
-		return parent::element($name, $data, $options);
+		return $this->element($name, $data, $options);
 	}
 
 	public function settings() { return []; }
@@ -54,6 +54,8 @@ class Cell extends View {
 				}
 			}
 		}
-		return false;
+
+		//if not a cell check for existing elements
+		return parent::_getElementFileName($name);
 	}
 }

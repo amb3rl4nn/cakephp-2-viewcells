@@ -22,6 +22,6 @@ class CellHelper extends Helper {
 		if (!empty($this->_View->viewVars['CellOptions'][$name]))
 			$options = Hash::merge($options, ['settings' => $this->_View->viewVars['CellOptions'][$name]]);
 
-		return $cell->element($name, $data, $options);
+		return $cell->cell($name, $data, $options);
 	}
 }
